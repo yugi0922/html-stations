@@ -18,23 +18,25 @@ async function getData() {
       is_student: true,
     },
   ];
-  result = await test(userList);
+  const result = await userList.map(test);
   return await result;
-  //return await result.map(test);
 }
 
-async function test(data) {
-  const promise = new Promise((resolve) => {
+async function test(userList) {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(data.map(mapping));
+      const full_name = userList.family_name + " " + userList.first_name;
+      userList.full_name = full_name;
+      console.log("３秒たったよ");
+      resolve(userList);
     }, 3000);
   });
-  await promise;
-  console.log(data);
-  return data;
-}
-
-function mapping(data) {
-  const full_name = data.family_name + " " + data.first_name;
-  data.full_name = full_name;
+  // 3秒後に実行
+  // setTimeout(() => {
+  //   const full_name = userList.family_name + " " + userList.first_name;
+  //   userList.full_name = full_name;
+  //   console.log("３秒たったよ");
+  // }, 3000);
+  // console.log(userList);
+  //return userList;
 }
